@@ -1,0 +1,10 @@
+{
+    "collection": "authentication",
+    "data": [
+        {
+            "name": "Administrator",
+            "login": "admin",
+            "pass": "admin@123"
+        }
+    ]
+}
