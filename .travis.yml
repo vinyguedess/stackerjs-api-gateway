@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+  - "7"
+
+before_install:
+  - npm install -g codecov istanbul typescript
+
+install:
+  - npm install
+
+before_script:
+  - npm run build
+  - echo "--recursive" >> test/mocha.opts
+  - echo "--reporter spec" >> test/mocha.opts
+  - echo "--ui tdd" >> test/mocha.opts
+
+script:
+  - npm run test
+
+after_success:
+  - ./node_modules/.bin/remap-istanbul -i coverage/coverage.json -o coverage/coverage.json
+  - istanbul report
+  - codecov
