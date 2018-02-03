@@ -1,6 +1,6 @@
+import { expect } from 'chai';
 import { UsersRepository } from './../DataProvider/Repositories';
 import { User } from '../DataProvider/Entities';
-
 
 
 describe('BaseRepositoryTest', ():void => 
@@ -17,10 +17,7 @@ describe('BaseRepositoryTest', ():void =>
 
             new UsersRepository()
                 .save(user)
-                .then(response => {
-                    console.log(response)
-                    console.log(user);
-                })
+                .then(response => expect(response).to.be.true)
                 .then(() => done());
         });
     });
@@ -32,7 +29,7 @@ describe('BaseRepositoryTest', ():void =>
             new UsersRepository()
                 .find()
                 .then(results => {
-                    console.log(results);
+                    expect(results).to.be.instanceOf(Array);
                 })
                 .then(() => done());
         });

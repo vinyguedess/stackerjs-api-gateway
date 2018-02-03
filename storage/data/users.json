@@ -1,12 +1,1 @@
-{
-    "collection":"authentication",
-    "data":[
-        {
-            "id":"12390128390821",
-            "name":"Administrator",
-            "login":"admin",
-            "password":"admin@123",
-            "active":1
-        }
-    ]
-}
+{"collection":"authentication","data":[{"id":"12390128390821","name":"Administrator","login":"admin","password":"admin@123","active":1},{"id":"613039147953.656","name":"Vinicius Guedes","login":"vinyguedess","active":1,"created_at":1517629068641}]}
