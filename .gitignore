@@ -1,5 +1,6 @@
 # App files and folders
 /app
+/coverage
 /node_modules
 /storage/**/*.json
 !/storage/data/users.json

@@ -1,10 +1,12 @@
 {
-    "collection": "authentication",
-    "data": [
+    "collection":"authentication",
+    "data":[
         {
-            "name": "Administrator",
-            "login": "admin",
-            "pass": "admin@123"
+            "id":"12390128390821",
+            "name":"Administrator",
+            "login":"admin",
+            "password":"admin@123",
+            "active":1
         }
     ]
 }
