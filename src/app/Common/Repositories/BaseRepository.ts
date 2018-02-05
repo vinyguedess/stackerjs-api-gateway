@@ -41,6 +41,20 @@ export abstract class BaseRepository extends ORM.BaseRepository
                     .map(result => ORM.Util.makeEntity(this.entity, result))));
     }
 
+    public findById(id:any):Promise<ORM.IEntity>
+    {
+        return this.loadFile()
+            .then(collection => 
+                collection.data.filter(item => 
+                    item.id === id))
+            .then(([ item ]) => {
+                if (!item)
+                    return null;
+
+                return ORM.Util.makeEntity(this.entity, item);
+            });
+    }
+
     public insert(entity:ORM.IEntity):Promise<boolean>
     {
         let preparedObject = {};
@@ -58,6 +72,38 @@ export abstract class BaseRepository extends ORM.BaseRepository
             .then(collection => {
                 collection.data.push(preparedObject);
 
+                return this.persistFile(collection)
+                    .then(() => true);
+            });
+    }
+
+    public update(entity:ORM.IEntity):Promise<boolean>
+    {
+        let preparedObject = {};
+        this.entity.metadata().fields.forEach(field => {
+            if (field.type === 'updated_at')
+                entity[field.name] = new Date().getTime();
+
+            preparedObject[field.name] = entity[field.name];
+        });
+
+        return this.loadFile()
+            .then(collection => {
+                collection.data = collection.data.map(item => 
+                    item.id === entity['id'] ? preparedObject : item);
+
+                return this.persistFile(collection)
+                    .then(() => true);
+            });
+    }
+
+    public delete(entity:ORM.IEntity):Promise<boolean>
+    {
+        return this.loadFile()
+            .then(collection => {
+                collection.data = collection.data.filter(item => 
+                    item.id !== entity['id']);
+                    
                 return this.persistFile(collection)
                     .then(() => true);
             });
